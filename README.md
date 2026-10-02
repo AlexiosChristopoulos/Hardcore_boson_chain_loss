@@ -92,11 +92,3 @@ matrix is recovered only after averaging many independent records.
 
 Method context: [Daley, *Advances in Physics* 63, 77 (2014)](https://arxiv.org/abs/1405.6694)
 and [Malo et al., *Physical Review A* 97, 053614 (2018)](https://doi.org/10.1103/PhysRevA.97.053614).
-
-## Provenance
-
-The code was written for this package. I reviewed the owner's existing
-`Open-Systems-and-Current-Fluctuations` and `Local_Temperature` repositories:
-their vectorized density-operator machinery solves a different numerical
-problem and would complicate this pure-state trajectory implementation, so
-no code was copied. ITensors.jl and ITensorMPS.jl retain their own licenses.
