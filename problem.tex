@@ -1,0 +1,45 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\title{Interacting hard-core bosons with local loss: MPS trajectories}
+\date{1 October 2026}
+\begin{document}\maketitle
+\section*{Model}
+With $\hbar=1$, each site has states $|0\rangle$ and $|1\rangle$,
+and $b_i^2=0$. The chain Hamiltonian and loss operators are
+\begin{align}
+H&=-J\sum_{i=1}^{L-1}(b_i^\dagger b_{i+1}+b_{i+1}^\dagger b_i)
++V\sum_{i=1}^{L-1}n_i n_{i+1},\\
+L_i&=\sqrt{\gamma_i}\,b_i.
+\end{align}
+These phenomenological Markovian jumps give
+$\dot\rho=-i[H,\rho]+\sum_i\mathcal D[L_i]\rho$, where
+$\mathcal D[L]\rho=L\rho L^\dagger-\{L^\dagger L,\rho\}/2$.
+The spin-$1/2$ representation uses $b_i=S_i^-$,
+$b_i^\dagger=S_i^+$ and $n_i=S_i^z+1/2$. This is a hard-core boson
+mapping; fermionic loss operators would require parity strings.
+
+\section*{Trajectory algorithm}
+Between jumps, a pure state follows the effective Hamiltonian
+$H_{\rm eff}=H-\frac{i}{2}\sum_i\gamma_i n_i$. On each interval
+$\delta t$, the MPS applies coherent half-step nearest-neighbor gates,
+the on-site operators $\exp(-\gamma_i\delta t\,n_i/2)$, and a reverse
+coherent half sweep. Its squared norm is the no-jump probability. A jump
+is selected when a uniform variate exceeds this probability; the selected
+site has conditional weight $\gamma_i\langle n_i\rangle$ in the
+propagated state. The state is normalized after either outcome.
+Placing a jump at the interval end introduces finite-step bias, so
+observables must be checked under step refinement. MPS singular-value
+truncation and Monte Carlo sampling add separate errors.
+
+At $J=0$, a single initially occupied site obeys
+$\langle n(t)\rangle=e^{-\gamma t}$ and has at most one jump. With
+all $\gamma_i=0$, particle number is conserved and the result should
+agree with unitary evolution under $H$. For $L\le4$, an independently
+constructed dense Lindblad generator provides a small-system reference.
+
+The method follows the quantum-trajectory formulation reviewed by
+A. J. Daley, Advances in Physics \textbf{63}, 77 (2014),
+doi:10.1080/00018732.2014.933502. Local-loss tensor-network context is
+J. Y. Malo et al., Physical Review A \textbf{97}, 053614 (2018),
+doi:10.1103/PhysRevA.97.053614.
+\end{document}

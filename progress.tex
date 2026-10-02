@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\title{Progress: HardcoreBosonChainLoss.jl}
+\date{1 October 2026}
+\begin{document}\maketitle
+\section*{Scope}
+Sixth item in the user-ordered queue: a one-dimensional interacting
+hard-core boson chain with local loss, solved by MPS quantum-jump
+trajectories. This package has Julia dependency metadata, a dense
+small-chain Lindblad reference, tests, example, benchmark, README,
+executed notebook, and model note. No GitHub package was reused because
+the local ITensorMPS implementation and independent dense reference were
+sufficient.
+\section*{Commands and results}
+With Julia 1.13.1, a writable temporary depot followed by the local
+Julia depot, offline package mode, and single-threaded BLAS, the command
+\begin{verbatim}
+JULIA_DEPOT_PATH=/private/tmp/zeno-julia-depot:/Users/alexioschristopoulos/.julia JULIA_PKG_OFFLINE=true OPENBLAS_NUM_THREADS=1 /Users/alexioschristopoulos/.juliaup/bin/julia --project=. test/runtests.jl
+\end{verbatim}
+passed 19 of 19 checks in two test sets. The one-site dense occupation at
+$\gamma=0.8$, $t=0.7$ was $0.571209064$, equal to $e^{-0.56}$ to nine
+printed decimals. For a closed three-site interacting chain, the MPS
+occupation error against dense unitary evolution was
+$4.024\times10^{-6}$ at step $0.01$; the sum of occupations was
+$2.000000000$. Reducing the step from $0.05$ to $0.01$ reduced the
+error. A lossy three-site 400-record ensemble agreed with dense
+Lindblad site occupations within its four-standard-error plus numerical
+tolerance. The dense evolved density matrix had trace one and
+nonnegative eigenvalues to roundoff.
+
+Both examples ran. At four sites, $J=1$, $\gamma_2=0.5$, $t=0.6$,
+and 400 records, the maximum site-occupation differences from dense
+evolution were $0.0031$ for $V=0$ and $0.0029$ for $V=1$.
+The benchmark reported $5.080$ s for 100 six-site trajectories and
+20 steps after warm-up, with final mean total occupation $2.76000$.
+This local timing is illustrative.
+
+Four tutorial Julia cells executed sequentially in one process, saved
+their outputs, and passed notebook-format validation. The notebook's
+400-record lossy estimate at site 2 was $0.817288\pm0.013651$ versus
+the dense value $0.813778$; its density-matrix trace printed as
+$1.000000000$. Both LaTeX notes compiled with the desktop compiler.
+No commit, push, publication, or release was performed.
+\section*{Limitations}
+Finite-step jump placement, MPS truncation, and Monte Carlo uncertainty
+must each be controlled. Dense reference is capped at four sites.
+Large entanglement can make the MPS trajectory representation costly.
+The rates are prescribed Markovian losses rather than a microscopic bath.
+\section*{Public-repository preparation, 2 October 2026 at 12:15 UTC}
+Reviewed the owner's existing GitHub repositories, including
+\texttt{Open-Systems-and-Current-Fluctuations} and
+\texttt{Local\_Temperature}. Their vectorized-density-operator routines
+do not simplify this pure-state MPS quantum-jump solver, so no code was
+copied. Added comments and a README table connecting numerical quantities
+to occupation, hopping, interaction, loss events, and Lindblad averages;
+expanded the executed notebook's physical explanations. Added a Julia
+\texttt{.gitignore} for generated manifests and notebook checkpoints.
+The public GitHub repository was created by the owner.
+
+With Julia 1.13.1, cached ITensors 0.9.14 and ITensorMPS 0.3.23, and one
+BLAS thread, offline dependency instantiation succeeded. The documented
+\texttt{test/runtests.jl} command passed 19 of 19 assertions. The example's
+four-site maximum occupation differences from dense Lindblad evolution
+were 0.0031 for $V=0$ and 0.0029 for $V=1$. The warmed six-site benchmark
+took 4.111 s for 100 trajectories and 20 steps, with final mean total
+occupation 2.76000. These local timings do not establish scaling.
+\end{document}
