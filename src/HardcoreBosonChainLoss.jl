@@ -121,7 +121,7 @@ end
 """Sample one finite-step MPS quantum-jump trajectory.
 
 `dt` bounds the time step; the actual step divides `time` evenly. Increase
-`maxdim` and reduce `cutoff`, then refine `dt`, to audit convergence.
+`maxdim` and reduce `cutoff`, then refine `dt`, to check convergence.
 """
 function trajectory(model::Model, initial, time; dt=0.02,
                     cutoff=1e-12, maxdim=64, rng=Random.default_rng())

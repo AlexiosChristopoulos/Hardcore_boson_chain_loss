@@ -1,9 +1,9 @@
 # HardcoreBosonChainLoss.jl
 
-A small Julia package for **interacting hard-core bosons in a one-dimensional
-chain with local one-body loss**. It uses ITensorMPS to evolve pure-state
-quantum-jump trajectories and includes an independent dense Lindblad
-reference for one to four sites.
+**Interacting hard-core bosons in a one-dimensional chain with local
+one-body loss.** The Julia solver uses ITensorMPS for pure-state quantum-jump
+trajectories and an independent dense Lindblad reference for one to four
+sites.
 
 ## Model and method
 
@@ -73,7 +73,7 @@ println(one.jumps, " ", many.mean_occupation)
 jump record. `ensemble` returns mean site occupations, their standard errors,
 and mean jump count. `dense_evolve` returns a density matrix and site means
 for at most four sites. Inputs are checked, and the random generator can be
-seeded for reproducibility. The [executed tutorial](chain_tutorial.ipynb)
+seeded for reproducibility. The [tutorial](chain_tutorial.ipynb)
 shows the analytic one-site loss law and dense comparison.
 
 ## Checks and limits
@@ -92,3 +92,10 @@ matrix is recovered only after averaging many independent records.
 
 Method context: [Daley, *Advances in Physics* 63, 77 (2014)](https://arxiv.org/abs/1405.6694)
 and [Malo et al., *Physical Review A* 97, 053614 (2018)](https://doi.org/10.1103/PhysRevA.97.053614).
+
+## Provenance
+
+Reference repositories: `Open-Systems-and-Current-Fluctuations` and
+`Local_Temperature`, consulted for context only. Their vectorized
+density-operator implementations are not used in this trajectory solver.
+ITensors.jl and ITensorMPS.jl retain their own licenses.
